@@ -261,6 +261,7 @@ export default function App() {
   const [navSolid, setNavSolid] = useState(false);
   const [selected, setSelected] = useState(PLAYERS[0]);
   const [page, setPage] = useState("main");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setNavSolid(window.scrollY > 40);
@@ -271,6 +272,8 @@ export default function App() {
   if (page === "avengers") {
     return <AvengersPage onBack={() => setPage("main")} />;
   }
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
@@ -286,10 +289,43 @@ export default function App() {
             Avengers
           </button>
         </div>
-        <a className="nav-cta" href="#cta">
+        <a className="nav-cta desktop-only" href="#cta">
           Карт үүсгэх
         </a>
+        <button
+          className={`hamburger-btn ${menuOpen ? "open" : ""}`}
+          aria-label="Цэс"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
+
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <a href="#players" onClick={closeMenu}>
+          Тоглогчид
+        </a>
+        <a href="#features" onClick={closeMenu}>
+          Онцлог
+        </a>
+        <a href="#story" onClick={closeMenu}>
+          Түүх
+        </a>
+        <button
+          className="as-link"
+          onClick={() => {
+            closeMenu();
+            setPage("avengers");
+          }}
+        >
+          Avengers
+        </button>
+        <a className="nav-cta" href="#cta" onClick={closeMenu}>
+          Карт үүсгэх
+        </a>
+      </div>
 
       <header className="hero">
         <HeroViewer selected={selected} />
