@@ -57,4 +57,3 @@ served from `public/models/` and ship as part of the build.
   1024px WebP textures) so total asset weight is a few MB, not 30–60MB.
 - Click any player card to swap the hero viewer's model.
 - Drag the hero model to rotate it, scroll to zoom.
-# 3d

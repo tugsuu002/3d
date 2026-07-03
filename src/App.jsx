@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import AvengersPage from "./AvengersPage.jsx";
 
 const PLAYERS = [
   { name: "Messi", pos: "Довтлогч", num: 10, model: "/models/messi.glb" },
@@ -259,12 +260,17 @@ function HeroViewer({ selected }) {
 export default function App() {
   const [navSolid, setNavSolid] = useState(false);
   const [selected, setSelected] = useState(PLAYERS[0]);
+  const [page, setPage] = useState("main");
 
   useEffect(() => {
     const onScroll = () => setNavSolid(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  if (page === "avengers") {
+    return <AvengersPage onBack={() => setPage("main")} />;
+  }
 
   return (
     <>
@@ -276,7 +282,9 @@ export default function App() {
           <a href="#players">Тоглогчид</a>
           <a href="#features">Онцлог</a>
           <a href="#story">Түүх</a>
-          <a href="#cta">Захиалга</a>
+          <button className="as-link" onClick={() => setPage("avengers")}>
+            Avengers
+          </button>
         </div>
         <a className="nav-cta" href="#cta">
           Карт үүсгэх
